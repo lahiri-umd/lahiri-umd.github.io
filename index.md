@@ -1,5 +1,5 @@
 # Predicting Goal Scoring in the English Premier League
-### An analysis by Ritviik Ravi, Andrew, Aditya, and Yafet
+### An analysis by Ritviik, Andrew, Aditya, and Yafet
 Published May 2026
 
 # Contributions
@@ -8,7 +8,7 @@ Published May 2026
 |---|---|
 | Andrew | **A, B, C — Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics**. Andrew helped develop the overall project direction and research question, organized and cleaned the EPL dataset, and contributed extensively to the exploratory data analysis and statistical hypothesis testing sections. |
 | Aditya | **D, E, F — ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis**. Aditya contributed to the design and implementation of the machine learning models, assisted with neural network training and evaluation, and helped analyze and interpret the model performance metrics and results. |
-| Ritviik Ravi | **E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation**. Ritviik worked on training and evaluating the predictive models, contributed to interpreting the machine learning results, and integrated the final report into a polished GitHub Pages tutorial format. |
+| Ritviik | **E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation**. Ritviik worked on training and evaluating the predictive models, contributed to interpreting the machine learning results, and integrated the final report into a polished GitHub Pages tutorial format. |
 | Yafet | **C, F — Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion**. Yafet contributed to exploratory data analysis, helped create and interpret visualizations, and assisted in writing the final results, discussion, and conclusion sections of the project. |
 ---
 
@@ -22,7 +22,34 @@ Published May 2026
 3. Exploratory Data Analysis  
    - Home vs Away Goal Scoring  
    - Shots on Target vs Goals Scored  
-   - Match Outcomes Across Eras  
+   - Match Outcomes Across Eras
+4. Machine Learning Analysis  
+   - Problem Framing and Prediction Goals  
+   - Data Preprocessing for Machine Learning  
+   - Team Encoding and Feature Scaling  
+   - Tensor Construction and Train/Test Split  
+   - Neural Network Architecture  
+   - Activation Functions and Poisson Loss  
+   - Model Training  
+   - Goal Prediction and Match Outcome Prediction  
+   - Classification Results  
+   - Confusion Matrix Analysis  
+   - Regression Error Metrics  
+   - Predicted vs Actual Goal Distribution  
+   - Sample Match Predictions  
+5. Visualization and Interpretation  
+   - Home vs Away Goal Distribution  
+   - Shots on Target Correlation Visualization  
+   - Match Outcome Era Visualization  
+   - Confusion Matrix Visualization  
+   - Error Metric Visualization  
+   - Goal Distribution Visualization  
+6. Insights and Conclusions  
+   - Model Strengths  
+   - Model Limitations  
+   - Difficulty Predicting Draws  
+   - Future Improvements   
+7. References 
 
 ---
 
