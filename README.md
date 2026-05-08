@@ -123,6 +123,38 @@ This large sample size provides a strong foundation for both statistical analysi
 
 ---
 
+
+
+## Preview of Dataset
+
+Before beginning analysis, we examined the first few rows of the dataset to better understand its structure and available features.
+
+```python
+
+df.head()
+
+```
+
+### Sample Dataset Output
+
+| MatchDate | Season | HomeTeam | AwayTeam | FullTimeHomeGoals | FullTimeAwayGoals | FullTimeResult | HomeShots | AwayShots |
+
+|---|---|---|---|---|---|---|---|---|
+
+| 2000-08-19 | 2000/01 | Charlton | Man City | 4 | 0 | H | 17 | 8 |
+
+| 2000-08-19 | 2000/01 | Chelsea | West Ham | 4 | 2 | H | 18 | 10 |
+
+| 2000-08-19 | 2000/01 | Coventry | Middlesbrough | 1 | 3 | A | 11 | 14 |
+
+| 2000-08-19 | 2000/01 | Derby | Southampton | 2 | 2 | D | 9 | 11 |
+
+| 2000-08-19 | 2000/01 | Leeds | Everton | 2 | 0 | H | 15 | 7 |
+
+The dataset includes a wide range of offensive and defensive match statistics, which makes it well suited for both exploratory analysis and predictive modeling.
+
+---
+
 ## 2.C Feature Engineering
 
 To support our analysis, we created two additional variables:
