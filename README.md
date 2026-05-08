@@ -356,7 +356,13 @@ Because our dataset contains over 9,000 matches, we used a one-sided Z-test to c
 
 ## Visualization
 
-VISUALIZATION FOR HOME VS AWAY GOALS DISTRIBUTION
+<p align="center">
+  <img src="images/homevsawaygraph.png" width="700">
+</p>
+
+<p align="center">
+  <em>Figure 1: Distribution of Home vs Away Goals</em>
+</p>
 
 ---
 
@@ -453,7 +459,13 @@ There is a positive linear correlation between shots on target and goals scored.
 
 ## Visualization
 
-VISUALIZATION FOR SHOTS ON TARGET VS GOALS SCORED
+<p align="center">
+  <img src="images/shotsontargetgraph.png" width="700">
+</p>
+
+<p align="center">
+  <em>Figure 2: Shots on Target vs Goals Scored</em>
+</p>
 
 ---
 
@@ -569,7 +581,13 @@ We divided the dataset into five historical eras and used a chi-squared test on 
 
 ## Visualization
 
-VISUALIZATION FOR MATCH OUTCOME DISTRIBUTIONS ACROSS ERAS
+<p align="center">
+  <img src="images/matchoutcomesgraph.png" width="700">
+</p>
+
+<p align="center">
+  <em>Figure 3: Distribution of Match Outcomes Across Eras</em>
+</p>
 
 ---
 
