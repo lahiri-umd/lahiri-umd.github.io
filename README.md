@@ -135,145 +135,146 @@ df.head()
 
 ```
 
-### Sample Dataset Output
+###  Dataset Output
 
-<h3>Sample Dataset Output</h3>
+<h3> Dataset Output</h3>
 
-<table>
+<table style="border-collapse: collapse; width: 100%;">
 
 <tr>
 
-<th>MatchDate</th>
+<th style="border:1px solid #ccc; padding:8px;">MatchDate</th>
 
-<th>Season</th>
+<th style="border:1px solid #ccc; padding:8px;">Season</th>
 
-<th>HomeTeam</th>
+<th style="border:1px solid #ccc; padding:8px;">HomeTeam</th>
 
-<th>AwayTeam</th>
+<th style="border:1px solid #ccc; padding:8px;">AwayTeam</th>
 
-<th>FullTimeHomeGoals</th>
+<th style="border:1px solid #ccc; padding:8px;">FullTimeHomeGoals</th>
 
-<th>FullTimeAwayGoals</th>
+<th style="border:1px solid #ccc; padding:8px;">FullTimeAwayGoals</th>
 
-<th>FullTimeResult</th>
+<th style="border:1px solid #ccc; padding:8px;">FullTimeResult</th>
 
-<th>HomeShots</th>
+<th style="border:1px solid #ccc; padding:8px;">HomeShots</th>
 
-<th>AwayShots</th>
+<th style="border:1px solid #ccc; padding:8px;">AwayShots</th>
 
 </tr>
 
 <tr>
 
-<td>2000-08-19</td>
+<td style="border:1px solid #ccc; padding:8px;">2000-08-19</td>
 
-<td>2000/01</td>
+<td style="border:1px solid #ccc; padding:8px;">2000/01</td>
 
-<td>Charlton</td>
+<td style="border:1px solid #ccc; padding:8px;">Charlton</td>
 
-<td>Man City</td>
+<td style="border:1px solid #ccc; padding:8px;">Man City</td>
 
-<td>4</td>
+<td style="border:1px solid #ccc; padding:8px;">4</td>
 
-<td>0</td>
+<td style="border:1px solid #ccc; padding:8px;">0</td>
 
-<td>H</td>
+<td style="border:1px solid #ccc; padding:8px;">H</td>
 
-<td>17</td>
+<td style="border:1px solid #ccc; padding:8px;">17</td>
 
-<td>8</td>
-
-</tr>
-
-<tr>
-
-<td>2000-08-19</td>
-
-<td>2000/01</td>
-
-<td>Chelsea</td>
-
-<td>West Ham</td>
-
-<td>4</td>
-
-<td>2</td>
-
-<td>H</td>
-
-<td>18</td>
-
-<td>10</td>
+<td style="border:1px solid #ccc; padding:8px;">8</td>
 
 </tr>
 
 <tr>
 
-<td>2000-08-19</td>
+<td style="border:1px solid #ccc; padding:8px;">2000-08-19</td>
 
-<td>2000/01</td>
+<td style="border:1px solid #ccc; padding:8px;">2000/01</td>
 
-<td>Coventry</td>
+<td style="border:1px solid #ccc; padding:8px;">Chelsea</td>
 
-<td>Middlesbrough</td>
+<td style="border:1px solid #ccc; padding:8px;">West Ham</td>
 
-<td>1</td>
+<td style="border:1px solid #ccc; padding:8px;">4</td>
 
-<td>3</td>
+<td style="border:1px solid #ccc; padding:8px;">2</td>
 
-<td>A</td>
+<td style="border:1px solid #ccc; padding:8px;">H</td>
 
-<td>11</td>
+<td style="border:1px solid #ccc; padding:8px;">18</td>
 
-<td>14</td>
-
-</tr>
-
-<tr>
-
-<td>2000-08-19</td>
-
-<td>2000/01</td>
-
-<td>Derby</td>
-
-<td>Southampton</td>
-
-<td>2</td>
-
-<td>2</td>
-
-<td>D</td>
-
-<td>9</td>
-
-<td>11</td>
+<td style="border:1px solid #ccc; padding:8px;">10</td>
 
 </tr>
 
 <tr>
 
-<td>2000-08-19</td>
+<td style="border:1px solid #ccc; padding:8px;">2000-08-19</td>
 
-<td>2000/01</td>
+<td style="border:1px solid #ccc; padding:8px;">2000/01</td>
 
-<td>Leeds</td>
+<td style="border:1px solid #ccc; padding:8px;">Coventry</td>
 
-<td>Everton</td>
+<td style="border:1px solid #ccc; padding:8px;">Middlesbrough</td>
 
-<td>2</td>
+<td style="border:1px solid #ccc; padding:8px;">1</td>
 
-<td>0</td>
+<td style="border:1px solid #ccc; padding:8px;">3</td>
 
-<td>H</td>
+<td style="border:1px solid #ccc; padding:8px;">A</td>
 
-<td>15</td>
+<td style="border:1px solid #ccc; padding:8px;">11</td>
 
-<td>7</td>
+<td style="border:1px solid #ccc; padding:8px;">14</td>
+
+</tr>
+
+<tr>
+
+<td style="border:1px solid #ccc; padding:8px;">2000-08-19</td>
+
+<td style="border:1px solid #ccc; padding:8px;">2000/01</td>
+
+<td style="border:1px solid #ccc; padding:8px;">Derby</td>
+
+<td style="border:1px solid #ccc; padding:8px;">Southampton</td>
+
+<td style="border:1px solid #ccc; padding:8px;">2</td>
+
+<td style="border:1px solid #ccc; padding:8px;">2</td>
+
+<td style="border:1px solid #ccc; padding:8px;">D</td>
+
+<td style="border:1px solid #ccc; padding:8px;">9</td>
+
+<td style="border:1px solid #ccc; padding:8px;">11</td>
+
+</tr>
+
+<tr>
+
+<td style="border:1px solid #ccc; padding:8px;">2000-08-19</td>
+
+<td style="border:1px solid #ccc; padding:8px;">2000/01</td>
+
+<td style="border:1px solid #ccc; padding:8px;">Leeds</td>
+
+<td style="border:1px solid #ccc; padding:8px;">Everton</td>
+
+<td style="border:1px solid #ccc; padding:8px;">2</td>
+
+<td style="border:1px solid #ccc; padding:8px;">0</td>
+
+<td style="border:1px solid #ccc; padding:8px;">H</td>
+
+<td style="border:1px solid #ccc; padding:8px;">15</td>
+
+<td style="border:1px solid #ccc; padding:8px;">7</td>
 
 </tr>
 
 </table>
+
 The dataset includes a wide range of offensive and defensive match statistics, which makes it well suited for both exploratory analysis and predictive modeling.
 
 ---
