@@ -1012,29 +1012,22 @@ During each epoch:
 
 ```python
 epochs = 25
-
 model.train()
-
 print("Training Enhanced MLP...")
-
 for epoch in range(epochs):
 
     for batch_teams, batch_stats, batch_y in train_loader:
-
         optimizer.zero_grad()
 
         predictions = model(
             batch_teams,
             batch_stats
         )
-
         loss = criterion(
             predictions,
             batch_y
         )
-
         loss.backward()
-
         optimizer.step()
 ```
 
