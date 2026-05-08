@@ -137,14 +137,143 @@ df.head()
 
 ### Sample Dataset Output
 
-| MatchDate | Season | HomeTeam | AwayTeam | FullTimeHomeGoals | FullTimeAwayGoals | FullTimeResult | HomeShots | AwayShots |
-|---|---|---|---|---|---|---|---|---|
-| 2000-08-19 | 2000/01 | Charlton | Man City | 4 | 0 | H | 17 | 8 |
-| 2000-08-19 | 2000/01 | Chelsea | West Ham | 4 | 2 | H | 18 | 10 |
-| 2000-08-19 | 2000/01 | Coventry | Middlesbrough | 1 | 3 | A | 11 | 14 |
-| 2000-08-19 | 2000/01 | Derby | Southampton | 2 | 2 | D | 9 | 11 |
-| 2000-08-19 | 2000/01 | Leeds | Everton | 2 | 0 | H | 15 | 7 |
+<h3>Sample Dataset Output</h3>
 
+<table>
+
+<tr>
+
+<th>MatchDate</th>
+
+<th>Season</th>
+
+<th>HomeTeam</th>
+
+<th>AwayTeam</th>
+
+<th>FullTimeHomeGoals</th>
+
+<th>FullTimeAwayGoals</th>
+
+<th>FullTimeResult</th>
+
+<th>HomeShots</th>
+
+<th>AwayShots</th>
+
+</tr>
+
+<tr>
+
+<td>2000-08-19</td>
+
+<td>2000/01</td>
+
+<td>Charlton</td>
+
+<td>Man City</td>
+
+<td>4</td>
+
+<td>0</td>
+
+<td>H</td>
+
+<td>17</td>
+
+<td>8</td>
+
+</tr>
+
+<tr>
+
+<td>2000-08-19</td>
+
+<td>2000/01</td>
+
+<td>Chelsea</td>
+
+<td>West Ham</td>
+
+<td>4</td>
+
+<td>2</td>
+
+<td>H</td>
+
+<td>18</td>
+
+<td>10</td>
+
+</tr>
+
+<tr>
+
+<td>2000-08-19</td>
+
+<td>2000/01</td>
+
+<td>Coventry</td>
+
+<td>Middlesbrough</td>
+
+<td>1</td>
+
+<td>3</td>
+
+<td>A</td>
+
+<td>11</td>
+
+<td>14</td>
+
+</tr>
+
+<tr>
+
+<td>2000-08-19</td>
+
+<td>2000/01</td>
+
+<td>Derby</td>
+
+<td>Southampton</td>
+
+<td>2</td>
+
+<td>2</td>
+
+<td>D</td>
+
+<td>9</td>
+
+<td>11</td>
+
+</tr>
+
+<tr>
+
+<td>2000-08-19</td>
+
+<td>2000/01</td>
+
+<td>Leeds</td>
+
+<td>Everton</td>
+
+<td>2</td>
+
+<td>0</td>
+
+<td>H</td>
+
+<td>15</td>
+
+<td>7</td>
+
+</tr>
+
+</table>
 The dataset includes a wide range of offensive and defensive match statistics, which makes it well suited for both exploratory analysis and predictive modeling.
 
 ---
