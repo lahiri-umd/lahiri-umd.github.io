@@ -1,8 +1,6 @@
 # Predicting Goal Scoring in the English Premier League
 ### An analysis by Ritviik, Andrew, Aditya, and Yafet
-Published May 2026
-
-# Contributions
+May 8, 2026
 
 # Contributions
 
