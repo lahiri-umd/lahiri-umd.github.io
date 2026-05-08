@@ -11,7 +11,7 @@ Published May 2026
 <h3>Andrew</h3>
 
 <p>
-<b>A, B, C — Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics</b>
+<b>Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics</b>
 </p>
 
 <p>
@@ -25,7 +25,7 @@ Andrew helped develop the overall project direction and research question, organ
 <h3>Aditya</h3>
 
 <p>
-<b>D, E, F — ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis</b>
+<b>ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis</b>
 </p>
 
 <p>
@@ -39,7 +39,7 @@ Aditya contributed to the design and implementation of the machine learning mode
 <h3>Ritviik</h3>
 
 <p>
-<b>E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation</b>
+<b>ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation</b>
 </p>
 
 <p>
@@ -53,7 +53,7 @@ Ritviik worked on training and evaluating the predictive models, contributed to 
 <h3>Yafet</h3>
 
 <p>
-<b>C, F — Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion</b>
+<b>Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion</b>
 </p>
 
 <p>
