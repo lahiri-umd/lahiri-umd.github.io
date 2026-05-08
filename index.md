@@ -1244,3 +1244,26 @@ Future improvements could include:
 - temporal form metrics
 
 These additional features may further improve predictive accuracy and help address the model’s difficulty in identifying draws.
+
+
+# 6. References
+
+1. Marcohuiii. *English Premier League (EPL) Match Data 2000–2025*. Kaggle Dataset.  
+
+https://www.kaggle.com/datasets/marcohuiii/english-premier-league-epl-match-data-2000-2025
+
+2. Ryan Beal, Stuart E. Middleton, Timothy J. Norman, and Sarvapali D. Ramchurn. *Combining Machine Learning and Human Experts to Predict Match Outcomes in Football: A Baseline Model*. arXiv, 2020.  
+
+https://arxiv.org/pdf/2012.04380
+
+3. Football-Data.co.uk. *Historical Football Results and Betting Odds Data*.  
+
+https://www.football-data.co.uk/data.php
+
+4. David Sheehan. *Predicting Football Results With Statistical Modelling: Dixon-Coles and Time-Weighting*.  
+
+https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling-dixon-coles-and-time-weighting/
+
+5. Quang Nguyen. *Poisson Modeling and Predicting English Premier League Goal Scoring*. arXiv, 2021.  
+
+https://arxiv.org/abs/2105.09881
