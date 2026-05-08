@@ -1064,6 +1064,72 @@ This allowed us to estimate probabilities for:
 
 We also introduced a draw inflation multiplier because independent Poisson models tend to underestimate draws in football matches.
 
+## Poisson-Based Outcome Conversion
+
+To convert predicted goals into match outcomes, we used the Poisson Probability Mass Function. The model outputs two expected goal values: one for the home team and one for the away team. We then calculated the probability of possible scorelines from 0 to 9 goals for both teams.
+
+For example, if the model predicts that the home team is expected to score 1.6 goals and the away team is expected to score 1.1 goals, the Poisson distribution lets us estimate the probability of scorelines such as 1-0, 2-1, 0-0, or 3-2.
+
+We then grouped all possible scoreline probabilities into three outcome classes:
+
+- home win
+- draw
+- away win
+
+Because football draws are often underestimated by independent Poisson models, we applied a draw inflation multiplier to slightly increase the probability of a draw.
+
+```python
+test_labels = []
+test_predictions = []
+
+DRAW_INFLATION_MULTIPLIER = 1.25
+
+for idx in range(len(test_preds)):
+
+    pred_h_lambda = preds_np[idx, 0]
+    pred_a_lambda = preds_np[idx, 1]
+
+    actual_h_goals = int(actuals_np[idx, 0])
+    actual_a_goals = int(actuals_np[idx, 1])
+
+    # Actual Class
+    if actual_h_goals > actual_a_goals:
+        test_labels.append('H')
+    elif actual_h_goals < actual_a_goals:
+        test_labels.append('A')
+    else:
+        test_labels.append('D')
+
+    # Calculate Probabilities
+    p_h, p_a, p_d = 0, 0, 0
+
+    for i in range(10):
+        for j in range(10):
+
+            prob = (
+                poisson.pmf(i, pred_h_lambda)
+                *
+                poisson.pmf(j, pred_a_lambda)
+            )
+
+            if i > j:
+                p_h += prob
+            elif i < j:
+                p_a += prob
+            else:
+                p_d += prob
+
+    p_d_inflated = p_d * DRAW_INFLATION_MULTIPLIER
+
+    # Predicted Class
+    if p_h > p_a and p_h > p_d_inflated:
+        test_predictions.append('H')
+    elif p_a > p_h and p_a > p_d_inflated:
+        test_predictions.append('A')
+    else:
+        test_predictions.append('D')
+```
+
 ---
 
 # 4.F Classification Results
@@ -1082,7 +1148,7 @@ report = classification_report(
     zero_division=0
 )
 
-print(f"Model Accuracy: {accuracy:.4f}")
+print(f"Model Accuracy: {accuracy:.4f}\n")
 print(report)
 ```
 
@@ -1090,15 +1156,17 @@ Output:
 
 ```python
 Model Accuracy: 0.5736
+
+              precision    recall  f1-score   support
+
+           A       0.52      0.67      0.59       539
+           D       0.38      0.11      0.16       474
+           H       0.63      0.77      0.69       863
+
+    accuracy                           0.57      1876
+   macro avg       0.51      0.52      0.48      1876
+weighted avg       0.54      0.57      0.53      1876
 ```
-
-### Classification Report
-
-| Outcome | Precision | Recall | F1-Score |
-|---|---|---|---|
-| Away Win | 0.52 | 0.67 | 0.59 |
-| Draw | 0.38 | 0.11 | 0.16 |
-| Home Win | 0.63 | 0.77 | 0.69 |
 
 Overall accuracy reached approximately **57.4%**, outperforming many existing football prediction benchmarks.
 
@@ -1115,6 +1183,42 @@ To better understand model behavior, we visualized the confusion matrix.
 ```python
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
+
+def plot_confusion_matrix(y_true, y_pred):
+    labels = ['H', 'D', 'A']
+
+    cm = confusion_matrix(
+        y_true,
+        y_pred,
+        labels=labels
+    )
+
+    cm_df = pd.DataFrame(
+        cm,
+        index=labels,
+        columns=labels
+    )
+
+    plt.figure(figsize=(8, 6))
+
+    sns.heatmap(
+        cm_df,
+        annot=True,
+        fmt='d',
+        cmap='Blues',
+        cbar=False
+    )
+
+    plt.title('Match Outcome Confusion Matrix')
+    plt.ylabel('Actual Outcome')
+    plt.xlabel('Predicted Outcome')
+
+    plt.show()
+
+plot_confusion_matrix(
+    test_labels,
+    test_predictions
+)
 ```
 
 <p align="center">
@@ -1190,6 +1294,62 @@ On average, predictions were off by less than one goal per match, which is a str
 
 # 4.I Error Metric Visualization
 
+```python
+def plot_error_metrics(metrics_dict):
+    df_metrics = pd.DataFrame(metrics_dict)
+
+    fig, ax = plt.subplots(
+        1,
+        2,
+        figsize=(14, 5)
+    )
+
+    # MAE Plot
+    sns.barplot(
+        x='Category',
+        y='MAE',
+        data=df_metrics,
+        ax=ax[0],
+        palette='viridis',
+        hue='Category',
+        legend=False
+    )
+
+    ax[0].set_title(
+        'Mean Absolute Error (Lower is Better)'
+    )
+
+    ax[0].set_ylabel('Goals')
+
+    # RMSE Plot
+    sns.barplot(
+        x='Category',
+        y='RMSE',
+        data=df_metrics,
+        ax=ax[1],
+        palette='magma',
+        hue='Category',
+        legend=False
+    )
+
+    ax[1].set_title(
+        'Root Mean Squared Error (Lower is Better)'
+    )
+
+    ax[1].set_ylabel('Goals')
+
+    plt.tight_layout()
+    plt.show()
+
+metrics_data = {
+    'Category': ['Home', 'Away', 'Total'],
+    'MAE': [mae_home, mae_away, mae_total],
+    'RMSE': [rmse_home, rmse_away, rmse_total]
+}
+
+plot_error_metrics(metrics_data)
+```
+
 <p align="center">
   <img src="images/error_metrics.png" width="700">
 </p>
@@ -1208,6 +1368,66 @@ The MAE and RMSE visualizations further reinforce that:
 
 We additionally compared actual goal distributions against predicted goal distributions.
 
+```python
+def plot_discrete_comparison(actuals, preds):
+    actual_counts = actuals.flatten().astype(int)
+
+    pred_counts = np.round(
+        preds.flatten()
+    ).astype(int)
+
+    # Calculate frequencies
+    max_goals = int(
+        max(
+            actual_counts.max(),
+            pred_counts.max()
+        )
+    )
+
+    bins = np.arange(
+        0,
+        max_goals + 2
+    ) - 0.5
+
+    plt.figure(figsize=(10, 6))
+
+    plt.hist(
+        [actual_counts, pred_counts],
+        bins=bins,
+        label=[
+            'Actual Goals',
+            'Predicted λ (Rounded)'
+        ],
+        color=[
+            '#3498db',
+            '#e74c3c'
+        ],
+        alpha=0.7,
+        density=True
+    )
+
+    plt.xticks(
+        range(max_goals + 1)
+    )
+
+    plt.title(
+        'Comparison of Empirical Goal Mass vs. Predicted Mass'
+    )
+
+    plt.xlabel('Number of Goals')
+    plt.ylabel('Probability P(X=k)')
+
+    plt.legend()
+    plt.grid(axis='y', alpha=0.3)
+
+    plt.show()
+
+plot_discrete_comparison(
+    actuals_np,
+    preds_np
+)
+```
+
 <p align="center">
   <img src="images/goal_distribution.png" width="700">
 </p>
@@ -1225,6 +1445,67 @@ This reflects the conservative nature of probabilistic prediction models and the
 # 4.K Sample Match Predictions
 
 To better understand model behavior, we evaluated several random test matches.
+
+```python
+print("\nSample Match Predictions (Actual vs Predicted):")
+sample_indices = np.random.choice(
+    len(test_preds),
+    10,
+    replace=False
+)
+
+for idx in sample_indices:
+
+    h_team = le.inverse_transform(
+        [X_teams_test[idx, 0].item()]
+    )[0]
+
+    a_team = le.inverse_transform(
+        [X_teams_test[idx, 1].item()]
+    )[0]
+
+    act_h, act_a = (
+        actuals_np[idx, 0],
+        actuals_np[idx, 1]
+    )
+
+    pred_h, pred_a = (
+        preds_np[idx, 0],
+        preds_np[idx, 1]
+    )
+
+    match_str = (
+        f"{h_team[:12]:>12} vs {a_team[:12]:<12}"
+    )
+
+    actual_str = (
+        f"Actual: {int(act_h)}-{int(act_a)}"
+    )
+
+    pred_str = (
+        f"Predicted: {pred_h:.1f} - {pred_a:.1f}"
+    )
+
+    print(
+        f"{match_str} | {actual_str:12} | {pred_str}"
+    )
+```
+
+Output:
+
+```python
+Sample Match Predictions (Actual vs Predicted):
+     Everton vs Crystal Pala | Actual: 3-2  | Predicted: 1.8 - 1.9
+     Watford vs Aston Villa  | Actual: 0-0  | Predicted: 0.9 - 1.4
+     Watford vs Man United   | Actual: 1-2  | Predicted: 1.3 - 1.3
+ Aston Villa vs Chelsea      | Actual: 2-0  | Predicted: 1.3 - 1.4
+     Norwich vs Sunderland   | Actual: 0-3  | Predicted: 1.2 - 1.1
+     Everton vs Blackpool    | Actual: 5-3  | Predicted: 2.4 - 1.2
+      Fulham vs Portsmouth   | Actual: 1-3  | Predicted: 1.1 - 1.0
+     Arsenal vs Chelsea      | Actual: 1-0  | Predicted: 1.4 - 0.9
+     Swansea vs Man City     | Actual: 2-4  | Predicted: 1.4 - 1.6
+   Newcastle vs West Ham     | Actual: 5-0  | Predicted: 2.1 - 1.3
+```
 
 ### Sample Predictions
 
