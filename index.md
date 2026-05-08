@@ -2,6 +2,20 @@
 ### An analysis by Ritviik Ravi, Andrew, Aditya, and Yafet
 Published May 2026
 
+# Contributions
+
+| Member | Contributions |
+
+|---|---|
+
+| Andrew | **A, B, C — Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics**. Andrew helped develop the overall project direction and research question, organized and cleaned the EPL dataset, and contributed extensively to the exploratory data analysis and statistical hypothesis testing sections. |
+
+| Aditya | **D, E, F — ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis**. Aditya contributed to the design and implementation of the machine learning models, assisted with neural network training and evaluation, and helped analyze and interpret the model performance metrics and results. |
+
+| Ritviik Ravi | **E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation**. Ritviik worked on training and evaluating the predictive models, contributed to interpreting the machine learning results, and integrated the final report into a polished GitHub Pages tutorial format. |
+
+| Yafet | **C, F — Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion**. Yafet contributed to exploratory data analysis, helped create and interpret visualizations, and assisted in writing the final results, discussion, and conclusion sections of the project. |
+
 ---
 
 # Table of Contents
