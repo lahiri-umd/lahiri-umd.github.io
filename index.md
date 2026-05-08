@@ -15,41 +15,52 @@ Published May 2026
 # Table of Contents
 
 1. Introduction  
+
 2. Data Curation and Preprocessing  
-   - Dataset Source  
-   - Data Loading and Cleaning  
-   - Feature Engineering  
+   - 2.A Dataset Source  
+   - 2.B Data Loading and Cleaning  
+   - Preview of Dataset  
+   - 2.C Feature Engineering  
+
 3. Exploratory Data Analysis  
-   - Home vs Away Goal Scoring  
-   - Shots on Target vs Goals Scored  
-   - Match Outcomes Across Eras
+   - 3.A Home vs Away Goal Scoring  
+      - Hypotheses  
+      - Visualization  
+      - Statistical Analysis  
+      - Results  
+   - 3.B Shots on Target vs Goals Scored  
+      - Hypotheses  
+      - Visualization  
+      - Statistical Analysis  
+      - Results  
+   - 3.C Match Outcomes Across Eras  
+      - Hypotheses  
+      - Visualization  
+      - Statistical Analysis  
+      - Results  
+
 4. Machine Learning Analysis  
-   - Problem Framing and Prediction Goals  
-   - Data Preprocessing for Machine Learning  
-   - Team Encoding and Feature Scaling  
-   - Tensor Construction and Train/Test Split  
-   - Neural Network Architecture  
-   - Activation Functions and Poisson Loss  
-   - Model Training  
-   - Goal Prediction and Match Outcome Prediction  
-   - Classification Results  
-   - Confusion Matrix Analysis  
-   - Regression Error Metrics  
-   - Predicted vs Actual Goal Distribution  
-   - Sample Match Predictions  
-5. Visualization and Interpretation  
-   - Home vs Away Goal Distribution  
-   - Shots on Target Correlation Visualization  
-   - Match Outcome Era Visualization  
-   - Confusion Matrix Visualization  
-   - Error Metric Visualization  
-   - Goal Distribution Visualization  
-6. Insights and Conclusions  
-   - Model Strengths  
-   - Model Limitations  
-   - Difficulty Predicting Draws  
-   - Future Improvements   
-7. References 
+   - 4.A Data Preprocessing  
+      - Team Encoding  
+      - Feature Scaling  
+   - 4.B Tensor Construction and Train/Test Split  
+   - 4.C Neural Network Architecture  
+      - Activation Functions and Loss Function  
+      - Model Definition  
+   - 4.D Model Training  
+   - 4.E Goal Prediction and Match Outcome Prediction  
+   - 4.F Classification Results  
+      - Classification Report  
+   - 4.G Confusion Matrix Visualization  
+   - 4.H Regression Error Metrics  
+      - Error Metrics  
+   - 4.I Error Metric Visualization  
+   - 4.J Predicted vs Actual Goal Distribution  
+   - 4.K Sample Match Predictions  
+
+5. Model Conclusion  
+
+6. References  
 
 ---
 
