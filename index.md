@@ -655,3 +655,551 @@ The visualization shows that:
 This trend aligns with the “ghost games” effect during the COVID-19 pandemic, when matches were played without fans and home-field advantage was temporarily reduced.
 
 This suggests that season and era may contain meaningful contextual information for predictive models.
+
+# 4. Machine Learning Analysis
+
+Now we attempt to predict the outcome of Premier League matches using machine learning. Predicting football matches is an extremely difficult problem because of the unpredictable and highly random nature of sports. Even prominent football analysts such as Mark Lawrenson historically achieve prediction accuracies of only around 53%, while many previous machine learning approaches to football prediction report accuracies between 54% and 56%.
+
+Because of this, we are not expecting a model with extremely high accuracy. Instead, our goal is to determine whether a machine learning model can achieve competitive performance while identifying meaningful statistical relationships between match statistics and match outcomes.
+
+Rather than directly predicting win, draw, or loss outcomes, we first predict the number of goals scored by both the home and away teams. We then use those predicted goal distributions to estimate the probability of:
+- a home win,
+- a draw,
+- or an away win.
+
+This approach better reflects the probabilistic nature of football scoring.
+
+---
+
+# 4.A Data Preprocessing
+
+The first step in training our model was preprocessing the data into a machine-readable format.
+
+We selected match statistics that were likely to influence scoring outcomes, including:
+- shots,
+- shots on target,
+- corners,
+- fouls,
+- and yellow cards.
+
+We also encoded team names into numerical IDs using a `LabelEncoder`. This allows the neural network to learn latent representations of team strength through embeddings.
+
+Finally, we normalized the statistical features using `StandardScaler` so that larger-valued variables such as shots would not dominate smaller-valued variables such as red cards or yellow cards.
+
+```python
+# Important libraries we'll be using
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    mean_absolute_error,
+    mean_squared_error
+)
+
+from torch.utils.data import DataLoader, TensorDataset
+from scipy.stats import poisson
+```
+
+```python
+df = pd.read_csv('epl_final.csv')
+
+stats_features = [
+    'HomeShots',
+    'AwayShots',
+    'HomeShotsOnTarget',
+    'AwayShotsOnTarget',
+    'HomeCorners',
+    'AwayCorners',
+    'HomeFouls',
+    'AwayFouls',
+    'HomeYellowCards',
+    'AwayYellowCards'
+]
+
+columns_to_keep = [
+    'HomeTeam',
+    'AwayTeam',
+    'FullTimeHomeGoals',
+    'FullTimeAwayGoals',
+    'FullTimeResult'
+] + stats_features
+
+df = df[columns_to_keep].dropna()
+```
+
+---
+
+## Team Encoding
+
+To allow our model to learn team-specific patterns, we transformed team names into numerical IDs.
+
+```python
+# Encode Teams
+le = LabelEncoder()
+
+all_teams = pd.concat([
+    df['HomeTeam'],
+    df['AwayTeam']
+]).unique()
+
+le.fit(all_teams)
+
+df['Home_ID'] = le.transform(df['HomeTeam'])
+df['Away_ID'] = le.transform(df['AwayTeam'])
+```
+
+---
+
+## Feature Scaling
+
+We normalized all numerical match statistics using `StandardScaler`.
+
+```python
+# Scale Stats Features
+scaler = StandardScaler()
+
+scaled_stats = scaler.fit_transform(df[stats_features])
+```
+
+Standardization improves neural network training stability by ensuring that all features operate on similar scales.
+
+---
+
+# 4.B Tensor Construction and Train/Test Split
+
+The next step was converting the Pandas DataFrames into PyTorch tensors so they could be used for training the neural network.
+
+We then performed an 80/20 train-test split and loaded the training data into batches of 64 matches each using a `DataLoader`.
+
+```python
+X_teams = torch.tensor(
+    df[['Home_ID', 'Away_ID']].values,
+    dtype=torch.long
+)
+
+X_stats = torch.tensor(
+    scaled_stats,
+    dtype=torch.float32
+)
+
+y_goals = torch.tensor(
+    df[['FullTimeHomeGoals', 'FullTimeAwayGoals']].values,
+    dtype=torch.float32
+)
+
+X_teams_train, X_teams_test, X_stats_train, X_stats_test, y_train, y_test = train_test_split(
+    X_teams,
+    X_stats,
+    y_goals,
+    test_size=0.2,
+    random_state=42
+)
+
+train_loader = DataLoader(
+    TensorDataset(
+        X_teams_train,
+        X_stats_train,
+        y_train
+    ),
+    batch_size=64,
+    shuffle=True
+)
+```
+
+---
+
+# 4.C Neural Network Architecture
+
+We implemented a Multi-Layer Perceptron (MLP) to model the complex nonlinear relationships involved in football outcomes.
+
+The model receives two types of input:
+
+1. Team Information  
+   - Home and away team IDs are passed through embedding layers.
+   - These embeddings allow the model to learn representations of team strength and style.
+
+2. Match Statistics  
+   - Shots,
+   - fouls,
+   - corners,
+   - yellow cards,
+   - and other statistics.
+
+These inputs are combined and passed through multiple hidden layers.
+
+The network structure is:
+
+```text
+Input → 128 → 64 → 32 → 2 Outputs
+```
+
+The final two outputs represent:
+- predicted home goals,
+- and predicted away goals.
+
+---
+
+## Activation Functions and Loss Function
+
+Because football goals approximately follow a Poisson distribution, we used:
+
+```python
+nn.PoissonNLLLoss()
+```
+
+instead of Mean Squared Error.
+
+We also used:
+- ReLU activations for hidden layers,
+- and a SoftPlus activation for the output layer.
+
+SoftPlus guarantees positive outputs, which is required for Poisson modeling.
+
+To reduce overfitting and encourage generalization, we added dropout layers throughout the network.
+
+---
+
+## Model Definition
+
+```python
+class EnhancedGoalPredictorMLP(nn.Module):
+
+    def __init__(
+        self,
+        num_teams,
+        num_stats_features,
+        embedding_dim=16
+    ):
+
+        super(
+            EnhancedGoalPredictorMLP,
+            self
+        ).__init__()
+
+        self.team_embedding = nn.Embedding(
+            num_teams,
+            embedding_dim
+        )
+
+        total_input_size = (
+            embedding_dim * 2
+        ) + num_stats_features
+
+        self.net = nn.Sequential(
+            nn.Linear(total_input_size, 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+
+            nn.Linear(64, 32),
+            nn.ReLU(),
+
+            nn.Linear(32, 2)
+        )
+
+    def forward(self, team_idx, stats_inputs):
+
+        h_emb = self.team_embedding(team_idx[:, 0])
+        a_emb = self.team_embedding(team_idx[:, 1])
+
+        x = torch.cat(
+            [h_emb, a_emb, stats_inputs],
+            dim=1
+        )
+
+        return torch.nn.functional.softplus(
+            self.net(x)
+        )
+
+model = EnhancedGoalPredictorMLP(
+    len(le.classes_),
+    num_stats_features=len(stats_features)
+)
+
+criterion = nn.PoissonNLLLoss(log_input=False)
+
+optimizer = optim.Adam(
+    model.parameters(),
+    lr=0.002
+)
+```
+
+---
+
+# 4.D Model Training
+
+With the model architecture defined, we trained the neural network for 25 epochs.
+
+During each epoch:
+- the model processed all batches of training matches,
+- computed prediction loss,
+- backpropagated gradients,
+- and updated weights using the Adam optimizer.
+
+```python
+epochs = 25
+
+model.train()
+
+print("Training Enhanced MLP...")
+
+for epoch in range(epochs):
+
+    for batch_teams, batch_stats, batch_y in train_loader:
+
+        optimizer.zero_grad()
+
+        predictions = model(
+            batch_teams,
+            batch_stats
+        )
+
+        loss = criterion(
+            predictions,
+            batch_y
+        )
+
+        loss.backward()
+
+        optimizer.step()
+```
+
+---
+
+# 4.E Goal Prediction and Match Outcome Prediction
+
+After training, we evaluated the model using unseen test data.
+
+```python
+model.eval()
+
+with torch.no_grad():
+
+    test_preds = model(
+        X_teams_test,
+        X_stats_test
+    )
+
+preds_np = test_preds.numpy()
+actuals_np = y_test.numpy()
+```
+
+The neural network predicts:
+- expected home goals,
+- and expected away goals.
+
+We then used the Poisson Probability Mass Function to convert those expected goal values into probability distributions.
+
+This allowed us to estimate probabilities for:
+- home wins,
+- draws,
+- and away wins.
+
+We also introduced a draw inflation multiplier because independent Poisson models tend to underestimate draws in football matches.
+
+---
+
+# 4.F Classification Results
+
+After converting predicted goal distributions into categorical outcomes, we evaluated the model's predictive accuracy.
+
+```python
+accuracy = accuracy_score(
+    test_labels,
+    test_predictions
+)
+
+report = classification_report(
+    test_labels,
+    test_predictions,
+    zero_division=0
+)
+
+print(f"Model Accuracy: {accuracy:.4f}")
+print(report)
+```
+
+Output:
+
+```python
+Model Accuracy: 0.5736
+```
+
+### Classification Report
+
+| Outcome | Precision | Recall | F1-Score |
+|---|---|---|---|
+| Away Win | 0.52 | 0.67 | 0.59 |
+| Draw | 0.38 | 0.11 | 0.16 |
+| Home Win | 0.63 | 0.77 | 0.69 |
+
+Overall accuracy reached approximately **57.4%**, outperforming many existing football prediction benchmarks.
+
+The model performed strongest on:
+- home wins,
+- followed by away wins.
+
+Draws remained significantly more difficult to predict.
+
+---
+
+# 4.G Confusion Matrix Visualization
+
+To better understand model behavior, we visualized the confusion matrix.
+
+```python
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+```
+
+VISUALIZATION FOR IMAGES/confusionmatrix.png
+
+The confusion matrix shows that the model performs reasonably well when predicting:
+- home wins,
+- and away wins,
+
+but struggles significantly with draws.
+
+This reflects a well-known challenge in football analytics: draws are comparatively rare and often depend on subtle tactical decisions that are difficult to model statistically.
+
+---
+
+# 4.H Regression Error Metrics
+
+We also evaluated the quality of the predicted goal counts using:
+- Mean Absolute Error (MAE),
+- and Root Mean Squared Error (RMSE).
+
+```python
+mae_home = mean_absolute_error(
+    actuals_np[:, 0],
+    preds_np[:, 0]
+)
+
+mae_away = mean_absolute_error(
+    actuals_np[:, 1],
+    preds_np[:, 1]
+)
+
+mae_total = mean_absolute_error(
+    actuals_np,
+    preds_np
+)
+
+rmse_home = np.sqrt(
+    mean_squared_error(
+        actuals_np[:, 0],
+        preds_np[:, 0]
+    )
+)
+
+rmse_away = np.sqrt(
+    mean_squared_error(
+        actuals_np[:, 1],
+        preds_np[:, 1]
+    )
+)
+
+rmse_total = np.sqrt(
+    mean_squared_error(
+        actuals_np,
+        preds_np
+    )
+)
+```
+
+### Error Metrics
+
+| Metric | Home Goals | Away Goals | Total |
+|---|---|---|---|
+| MAE | 0.901 | 0.778 | 0.839 |
+| RMSE | 1.170 | 0.983 | 1.081 |
+
+The model predicts away goals slightly more accurately than home goals.
+
+On average, predictions were off by less than one goal per match, which is a strong result given the unpredictability of football scoring.
+
+---
+
+# 4.I Error Metric Visualization
+
+VISUALIZATION FOR IMAGES/error_metrics.png
+
+The MAE and RMSE visualizations further reinforce that:
+- the model performs relatively consistently,
+- and prediction errors remain within reasonable ranges for football analytics.
+
+---
+
+# 4.J Predicted vs Actual Goal Distribution
+
+We additionally compared:
+- actual goal distributions,
+- against predicted goal distributions.
+
+VISUALIZATION FOR IMAGES/goal_distribution.png
+
+The model tends to overpredict common scores while underpredicting rare high-scoring matches.
+
+This reflects the conservative nature of probabilistic prediction models and the inherent randomness of football.
+
+---
+
+# 4.K Sample Match Predictions
+
+To better understand model behavior, we evaluated several random test matches.
+
+### Sample Predictions
+
+| Match | Actual Score | Predicted Score |
+|---|---|---|
+| Everton vs Crystal Palace | 3-2 | 1.8 - 1.9 |
+| Watford vs Aston Villa | 0-0 | 0.9 - 1.4 |
+| Arsenal vs Chelsea | 1-0 | 1.4 - 0.9 |
+| Swansea vs Man City | 2-4 | 1.4 - 1.6 |
+| Newcastle vs West Ham | 5-0 | 2.1 - 1.3 |
+
+These examples demonstrate that:
+- the model captures overall scoring tendencies reasonably well,
+- but struggles with unusually high-scoring or highly unpredictable matches.
+
+---
+
+# 5. Model Conclusion
+
+Overall, our model achieved approximately **57% prediction accuracy**, outperforming many existing football prediction benchmarks from both human analysts and prior machine learning approaches.
+
+The model performed best when predicting:
+- home wins,
+- followed by away wins.
+
+Draws remained the most difficult outcome to predict.
+
+The regression metrics also showed that the model could predict expected goals with relatively small average errors, particularly for away goals.
+
+By visualizing predicted versus actual goal distributions, we observed that the model tends to favor safer and more common outcomes, reflecting the unpredictable nature of football matches.
+
+Despite the difficulty of the task, we consider the model a success because it demonstrates that:
+- historical match statistics,
+- team strength embeddings,
+- and probabilistic goal modeling
+
+can produce competitive football prediction performance.
+
+Future improvements could include:
+- player-level statistics,
+- injuries,
+- expected goals (xG),
+- betting odds,
+- weather conditions,
+- and temporal form metrics.
+
+These additional features may further improve predictive accuracy and help address the model’s difficulty in identifying draws.
