@@ -26,15 +26,15 @@ The objective of our project is to analyze historical Premier League data to det
 
 The dataset contains detailed information about each match, including:
 
-- goals scored,
-- shots,
-- shots on target,
-- fouls,
-- corners,
-- yellow cards,
-- teams,
-- match dates,
-- and other in-game statistics.
+- goals scored
+- shots
+- shots on target
+- fouls
+- corners
+- yellow cards
+- teams
+- match dates
+- other in-game statistics
 
 Our primary research question is:
 
@@ -56,23 +56,23 @@ We selected the **English Premier League Match Data 2000–2025** dataset from K
 
 The dataset contains:
 
-- every EPL match from the 2000/01 season through the 2024/25 season,
-- over 9,000 total matches,
-- full-time and half-time scorelines,
-- shots,
-- shots on target,
-- corners,
-- fouls,
-- yellow cards,
-- red cards,
-- referee information,
-- and team information.
+- every EPL match from the 2000/01 season through the 2024/25 season
+- over 9,000 total matches
+- full-time and half-time scorelines
+- shots
+- shots on target
+- corners
+- fouls
+- yellow cards
+- red cards
+- referee information
+- team information
 
 Each row in the dataset represents a single match.
 
 This dataset is particularly well suited for our analysis because it includes both:
 1. the final outcomes of matches, and
-2. the in-game statistics that may help explain those outcomes.
+2. the in-game statistics that may help explain those outcomes
 
 We loaded the dataset into a pandas DataFrame, which served as the primary structure for all preprocessing, visualization, and machine learning analysis.
 
@@ -114,10 +114,10 @@ Output:
 
 The dataset contains:
 
-- 9,380 matches,
-- 23 columns,
-- 25 seasons,
-- and 46 unique teams.
+- 9,380 matches
+- 23 columns
+- 25 seasons
+- 46 unique teams
 
 This large sample size provides a strong foundation for both statistical analysis and machine learning modeling.
 
@@ -299,9 +299,9 @@ df['GoalDiff'] = (
 ```
 
 These engineered features helped us analyze:
-- scoring trends,
-- offensive efficiency,
-- and match outcomes.
+- scoring trends
+- offensive efficiency
+- match outcomes
 
 We also examined overall dataset statistics.
 
@@ -332,9 +332,9 @@ We focused on three major questions:
 3. Have match outcome distributions changed across different eras of EPL history?
 
 Each analysis included:
-- a statistical hypothesis test,
-- a visualization,
-- and an interpretation of the results.
+- a statistical hypothesis test
+- a visualization
+- an interpretation of the results
 
 ---
 
@@ -540,15 +540,15 @@ An r-value of 0.461 indicates a moderate positive correlation, while the r² val
 Although goals remain inherently noisy and unpredictable, this represents a strong single-feature relationship for sports data.
 
 The remaining unexplained variance likely comes from:
-- shot quality,
-- defensive pressure,
-- goalkeeper performance,
-- tactical adjustments,
-- and randomness.
+- shot quality
+- defensive pressure
+- goalkeeper performance
+- tactical adjustments
+- randomness
 
 These findings strongly support the inclusion of:
 - HomeShotsOnTarget
-- and AwayShotsOnTarget
+- AwayShotsOnTarget
 
 as primary predictive features in future regression models.
 
@@ -559,9 +559,9 @@ as primary predictive features in future regression models.
 Football has evolved significantly over the past 25 years. Tactical innovations, changes in officiating, analytics adoption, and even external events such as COVID-19 may have influenced the distribution of match outcomes.
 
 We investigated whether the proportions of:
-- home wins,
-- draws,
-- and away wins
+- home wins
+- draws
+- away wins
 
 changed significantly across different eras of EPL history.
 
@@ -648,9 +648,9 @@ p = 0.000335
 Since the p-value is well below 0.05, we reject the null hypothesis.
 
 The visualization shows that:
-- home win rates remain relatively stable,
-- draw rates decline in recent years,
-- away wins increase noticeably during the 2020–2025 era.
+- home win rates remain relatively stable
+- draw rates decline in recent years
+- away wins increase noticeably during the 2020–2025 era
 
 This trend aligns with the “ghost games” effect during the COVID-19 pandemic, when matches were played without fans and home-field advantage was temporarily reduced.
 
@@ -663,9 +663,9 @@ Now we attempt to predict the outcome of Premier League matches using machine le
 Because of this, we are not expecting a model with extremely high accuracy. Instead, our goal is to determine whether a machine learning model can achieve competitive performance while identifying meaningful statistical relationships between match statistics and match outcomes.
 
 Rather than directly predicting win, draw, or loss outcomes, we first predict the number of goals scored by both the home and away teams. We then use those predicted goal distributions to estimate the probability of:
-- a home win,
-- a draw,
-- or an away win.
+- a home win
+- a draw
+- an away win
 
 This approach better reflects the probabilistic nature of football scoring.
 
@@ -676,11 +676,11 @@ This approach better reflects the probabilistic nature of football scoring.
 The first step in training our model was preprocessing the data into a machine-readable format.
 
 We selected match statistics that were likely to influence scoring outcomes, including:
-- shots,
-- shots on target,
-- corners,
-- fouls,
-- and yellow cards.
+- shots
+- shots on target
+- corners
+- fouls
+- yellow cards
 
 We also encoded team names into numerical IDs using a `LabelEncoder`. This allows the neural network to learn latent representations of team strength through embeddings.
 
@@ -820,15 +820,15 @@ We implemented a Multi-Layer Perceptron (MLP) to model the complex nonlinear rel
 The model receives two types of input:
 
 1. Team Information  
-   - Home and away team IDs are passed through embedding layers.
-   - These embeddings allow the model to learn representations of team strength and style.
+   - Home and away team IDs are passed through embedding layers
+   - These embeddings allow the model to learn representations of team strength and style
 
 2. Match Statistics  
-   - Shots,
-   - fouls,
-   - corners,
-   - yellow cards,
-   - and other statistics.
+   - shots
+   - fouls
+   - corners
+   - yellow cards
+   - other statistics
 
 These inputs are combined and passed through multiple hidden layers.
 
@@ -838,9 +838,7 @@ The network structure is:
 Input → 128 → 64 → 32 → 2 Outputs
 ```
 
-The final two outputs represent:
-- predicted home goals,
-- and predicted away goals.
+The final two outputs represent predicted home goals and predicted away goals.
 
 ---
 
@@ -855,8 +853,8 @@ nn.PoissonNLLLoss()
 instead of Mean Squared Error.
 
 We also used:
-- ReLU activations for hidden layers,
-- and a SoftPlus activation for the output layer.
+- ReLU activations for hidden layers
+- a SoftPlus activation for the output layer
 
 SoftPlus guarantees positive outputs, which is required for Poisson modeling.
 
@@ -939,10 +937,10 @@ optimizer = optim.Adam(
 With the model architecture defined, we trained the neural network for 25 epochs.
 
 During each epoch:
-- the model processed all batches of training matches,
-- computed prediction loss,
-- backpropagated gradients,
-- and updated weights using the Adam optimizer.
+- the model processed all batches of training matches
+- computed prediction loss
+- backpropagated gradients
+- updated weights using the Adam optimizer
 
 ```python
 epochs = 25
@@ -993,15 +991,15 @@ actuals_np = y_test.numpy()
 ```
 
 The neural network predicts:
-- expected home goals,
-- and expected away goals.
+- expected home goals
+- expected away goals
 
 We then used the Poisson Probability Mass Function to convert those expected goal values into probability distributions.
 
 This allowed us to estimate probabilities for:
-- home wins,
-- draws,
-- and away wins.
+- home wins
+- draws
+- away wins
 
 We also introduced a draw inflation multiplier because independent Poisson models tend to underestimate draws in football matches.
 
@@ -1043,9 +1041,7 @@ Model Accuracy: 0.5736
 
 Overall accuracy reached approximately **57.4%**, outperforming many existing football prediction benchmarks.
 
-The model performed strongest on:
-- home wins,
-- followed by away wins.
+The model performed strongest on home wins followed by away wins.
 
 Draws remained significantly more difficult to predict.
 
@@ -1060,13 +1056,15 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 ```
 
-VISUALIZATION FOR IMAGES/confusionmatrix.png
+<p align="center">
+  <img src="images/confusionmatrix.png" width="700">
+</p>
 
-The confusion matrix shows that the model performs reasonably well when predicting:
-- home wins,
-- and away wins,
+<p align="center">
+  <em>Figure 4: Match Outcome Confusion Matrix</em>
+</p>
 
-but struggles significantly with draws.
+The confusion matrix shows that the model performs reasonably well when predicting home wins and away wins but struggles significantly with draws.
 
 This reflects a well-known challenge in football analytics: draws are comparatively rare and often depend on subtle tactical decisions that are difficult to model statistically.
 
@@ -1075,8 +1073,8 @@ This reflects a well-known challenge in football analytics: draws are comparativ
 # 4.H Regression Error Metrics
 
 We also evaluated the quality of the predicted goal counts using:
-- Mean Absolute Error (MAE),
-- and Root Mean Squared Error (RMSE).
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
 
 ```python
 mae_home = mean_absolute_error(
@@ -1131,21 +1129,31 @@ On average, predictions were off by less than one goal per match, which is a str
 
 # 4.I Error Metric Visualization
 
-VISUALIZATION FOR IMAGES/error_metrics.png
+<p align="center">
+  <img src="images/error_metrics.png" width="700">
+</p>
+
+<p align="center">
+  <em>Figure 5: Mean Absolute Error and RMSE Comparison</em>
+</p>
 
 The MAE and RMSE visualizations further reinforce that:
-- the model performs relatively consistently,
-- and prediction errors remain within reasonable ranges for football analytics.
+- the model performs relatively consistently
+- prediction errors remain within reasonable ranges for football analytics.
 
 ---
 
 # 4.J Predicted vs Actual Goal Distribution
 
-We additionally compared:
-- actual goal distributions,
-- against predicted goal distributions.
+We additionally compared actual goal distributions against predicted goal distributions.
 
-VISUALIZATION FOR IMAGES/goal_distribution.png
+<p align="center">
+  <img src="images/goal_distribution.png" width="700">
+</p>
+
+<p align="center">
+  <em>Figure 6: Actual vs Predicted Goal Distribution</em>
+</p>
 
 The model tends to overpredict common scores while underpredicting rare high-scoring matches.
 
@@ -1168,8 +1176,8 @@ To better understand model behavior, we evaluated several random test matches.
 | Newcastle vs West Ham | 5-0 | 2.1 - 1.3 |
 
 These examples demonstrate that:
-- the model captures overall scoring tendencies reasonably well,
-- but struggles with unusually high-scoring or highly unpredictable matches.
+- the model captures overall scoring tendencies reasonably well
+- struggles with unusually high-scoring or highly unpredictable matches
 
 ---
 
@@ -1177,9 +1185,7 @@ These examples demonstrate that:
 
 Overall, our model achieved approximately **57% prediction accuracy**, outperforming many existing football prediction benchmarks from both human analysts and prior machine learning approaches.
 
-The model performed best when predicting:
-- home wins,
-- followed by away wins.
+The model performed best when predicting home wins followed by away wins.
 
 Draws remained the most difficult outcome to predict.
 
@@ -1188,18 +1194,18 @@ The regression metrics also showed that the model could predict expected goals w
 By visualizing predicted versus actual goal distributions, we observed that the model tends to favor safer and more common outcomes, reflecting the unpredictable nature of football matches.
 
 Despite the difficulty of the task, we consider the model a success because it demonstrates that:
-- historical match statistics,
-- team strength embeddings,
-- and probabilistic goal modeling
+- historical match statistics
+- team strength embeddings
+- probabilistic goal modeling
 
 can produce competitive football prediction performance.
 
 Future improvements could include:
-- player-level statistics,
-- injuries,
-- expected goals (xG),
-- betting odds,
-- weather conditions,
-- and temporal form metrics.
+- player-level statistics
+- injuries
+- expected goals (xG)
+- betting odds
+- weather conditions
+- temporal form metrics
 
 These additional features may further improve predictive accuracy and help address the model’s difficulty in identifying draws.
