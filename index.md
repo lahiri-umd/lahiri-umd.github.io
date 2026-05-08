@@ -4,13 +4,63 @@ Published May 2026
 
 # Contributions
 
-| Member | Contributions |
-|---|---|
-| Andrew | **A, B, C — Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics**. Andrew helped develop the overall project direction and research question, organized and cleaned the EPL dataset, and contributed extensively to the exploratory data analysis and statistical hypothesis testing sections. |
-| Aditya | **D, E, F — ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis**. Aditya contributed to the design and implementation of the machine learning models, assisted with neural network training and evaluation, and helped analyze and interpret the model performance metrics and results. |
-| Ritviik | **E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation**. Ritviik worked on training and evaluating the predictive models, contributed to interpreting the machine learning results, and integrated the final report into a polished GitHub Pages tutorial format. |
-| Yafet | **C, F — Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion**. Yafet contributed to exploratory data analysis, helped create and interpret visualizations, and assisted in writing the final results, discussion, and conclusion sections of the project. |
----
+# Contributions
+
+<div style="border:1px solid #ccc; padding:15px; border-radius:10px; margin-bottom:15px;">
+
+<h3>Andrew</h3>
+
+<p>
+<b>A, B, C — Project Idea, Dataset Curation and Preprocessing, Data Exploration and Summary Statistics</b>
+</p>
+
+<p>
+Andrew helped develop the overall project direction and research question, organized and cleaned the EPL dataset, and contributed extensively to the exploratory data analysis and statistical hypothesis testing sections.
+</p>
+
+</div>
+
+<div style="border:1px solid #ccc; padding:15px; border-radius:10px; margin-bottom:15px;">
+
+<h3>Aditya</h3>
+
+<p>
+<b>D, E, F — ML Algorithm Design/Development, ML Algorithm Training and Test Data Analysis, Report Analysis</b>
+</p>
+
+<p>
+Aditya contributed to the design and implementation of the machine learning models, assisted with neural network training and evaluation, and helped analyze and interpret the model performance metrics and results.
+</p>
+
+</div>
+
+<div style="border:1px solid #ccc; padding:15px; border-radius:10px; margin-bottom:15px;">
+
+<h3>Ritviik</h3>
+
+<p>
+<b>E, F, G — ML Algorithm Training and Test Data Analysis, Report Analysis, Final Tutorial Report Creation</b>
+</p>
+
+<p>
+Ritviik worked on training and evaluating the predictive models, contributed to interpreting the machine learning results, and integrated the final report into a polished GitHub Pages tutorial format.
+</p>
+
+</div>
+
+<div style="border:1px solid #ccc; padding:15px; border-radius:10px; margin-bottom:15px;">
+
+<h3>Yafet</h3>
+
+<p>
+<b>C, F — Data Exploration and Summary Statistics, Visualization, Result Analysis, Conclusion</b>
+</p>
+
+<p>
+Yafet contributed to exploratory data analysis, helped create and interpret visualizations, and assisted in writing the final results, discussion, and conclusion sections of the project.
+</p>
+
+</div>
 
 # Table of Contents
 
