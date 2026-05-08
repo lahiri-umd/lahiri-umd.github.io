@@ -1139,7 +1139,7 @@ On average, predictions were off by less than one goal per match, which is a str
 
 The MAE and RMSE visualizations further reinforce that:
 - the model performs relatively consistently
-- prediction errors remain within reasonable ranges for football analytics.
+- prediction errors remain within reasonable ranges for football analytics
 
 ---
 
