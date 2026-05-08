@@ -1254,6 +1254,6 @@ These additional features may further improve predictive accuracy and help addre
 
 3. Football results, Statistics & Soccer Betting Odds Data. Football Betting - Football Results - Free Bets. (n.d.). https://www.football-data.co.uk/data.php 
 
-4.Predicting football results with statistical modelling: Dixon-Coles and time-weighting. dashee87.github.io. (2018, September 13). https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling-dixon-coles-and-time-weighting/ 
+4. Predicting football results with statistical modelling: Dixon-Coles and time-weighting. dashee87.github.io. (2018, September 13). https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling-dixon-coles-and-time-weighting/ 
 
 5. Quang Nguyen. *Poisson Modeling and Predicting English Premier League Goal Scoring*. arXiv, 2021.  https://arxiv.org/abs/2105.09881
