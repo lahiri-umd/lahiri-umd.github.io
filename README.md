@@ -138,17 +138,11 @@ df.head()
 ### Sample Dataset Output
 
 | MatchDate | Season | HomeTeam | AwayTeam | FullTimeHomeGoals | FullTimeAwayGoals | FullTimeResult | HomeShots | AwayShots |
-
 |---|---|---|---|---|---|---|---|---|
-
 | 2000-08-19 | 2000/01 | Charlton | Man City | 4 | 0 | H | 17 | 8 |
-
 | 2000-08-19 | 2000/01 | Chelsea | West Ham | 4 | 2 | H | 18 | 10 |
-
 | 2000-08-19 | 2000/01 | Coventry | Middlesbrough | 1 | 3 | A | 11 | 14 |
-
 | 2000-08-19 | 2000/01 | Derby | Southampton | 2 | 2 | D | 9 | 11 |
-
 | 2000-08-19 | 2000/01 | Leeds | Everton | 2 | 0 | H | 15 | 7 |
 
 The dataset includes a wide range of offensive and defensive match statistics, which makes it well suited for both exploratory analysis and predictive modeling.
