@@ -1248,22 +1248,12 @@ These additional features may further improve predictive accuracy and help addre
 
 # 6. References
 
-1. Marcohuiii. *English Premier League (EPL) Match Data 2000–2025*. Kaggle Dataset.  
+1. Marcohuiii. (2025, May 12). English Premier League (EPL) Match Data 2000-2025. Kaggle. https://www.kaggle.com/datasets/marcohuiii/english-premier-league-epl-match-data-2000-2025 
 
-https://www.kaggle.com/datasets/marcohuiii/english-premier-league-epl-match-data-2000-2025
+2. Ryan Beal, Stuart E. Middleton, Timothy J. Norman, and Sarvapali D. Ramchurn. *Combining Machine Learning and Human Experts to Predict Match Outcomes in Football: A Baseline Model*. arXiv, 2020.  https://arxiv.org/pdf/2012.04380
 
-2. Ryan Beal, Stuart E. Middleton, Timothy J. Norman, and Sarvapali D. Ramchurn. *Combining Machine Learning and Human Experts to Predict Match Outcomes in Football: A Baseline Model*. arXiv, 2020.  
+3. Football results, Statistics & Soccer Betting Odds Data. Football Betting - Football Results - Free Bets. (n.d.). https://www.football-data.co.uk/data.php 
 
-https://arxiv.org/pdf/2012.04380
+4.Predicting football results with statistical modelling: Dixon-Coles and time-weighting. dashee87.github.io. (2018, September 13). https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling-dixon-coles-and-time-weighting/ 
 
-3. Football-Data.co.uk. *Historical Football Results and Betting Odds Data*.  
-
-https://www.football-data.co.uk/data.php
-
-4. David Sheehan. *Predicting Football Results With Statistical Modelling: Dixon-Coles and Time-Weighting*.  
-
-https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling-dixon-coles-and-time-weighting/
-
-5. Quang Nguyen. *Poisson Modeling and Predicting English Premier League Goal Scoring*. arXiv, 2021.  
-
-https://arxiv.org/abs/2105.09881
+5. Quang Nguyen. *Poisson Modeling and Predicting English Premier League Goal Scoring*. arXiv, 2021.  https://arxiv.org/abs/2105.09881
